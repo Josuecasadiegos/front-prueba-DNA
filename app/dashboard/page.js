@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { apiFetch } from '@/lib/api';
+import Link from 'next/link';
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -77,6 +78,14 @@ export default function Dashboard() {
       <div className="max-w-4xl mx-auto">
         <header className="flex justify-between items-center mb-10">
           <h1 className="text-4xl font-bold">Dashboard</h1>
+          <Link
+            href="/dashboard/roles"
+            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg transition"
+          >
+            Gestionar Roles
+          </Link>
+
+
           <button
             onClick={handleLogout}
             className="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg transition"
