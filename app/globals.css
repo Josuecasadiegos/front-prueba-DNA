@@ -1,39 +1,32 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* src/app/globals.css  ← o app/globals.css */
 
-:root {
-  --background: 220 20% 6%;
-  --background-gradient: linear-gradient(135deg, hsl(220 20% 6%) 0%, hsl(240 15% 8%) 100%);
-  
-  --foreground: 220 80% 95%;
-  --foreground-muted: 220 40% 70%;
-  
-  --card: 220 18% 12%;
-  --card-border: 220 15% 18%;
-  
-  --border: 220 15% 18%;
-  --input: 220 15% 18%;
-  
-  --primary: 243 75% 65%;
-  --primary-hover: 243 75% 55%;
-  --primary-glow: 0 0 12px rgba(99, 102, 241, 0.35);
-  
-  --accent: 200 90% 65%;
-  --accent-glow: 0 0 10px rgba(34, 211, 238, 0.25);
-  
-  --muted: 220 15% 20%;
-  --muted-foreground: 220 30% 60%;
+@import "tailwindcss";
+
+/* Opcional: si quieres dark mode manual (con .dark en <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Tus variables custom (recomendado mover theme aquí en v4) */
+@theme {
+  --color-background: hsl(240 10% 3.9%);
+  --color-foreground: hsl(0 0% 98%);
+  --color-primary: hsl(243 75% 59%);
+  --color-primary-hover: hsl(243 75% 50%);
+  --color-muted: hsl(240 3.7% 15.9%);
+  --color-muted-foreground: hsl(240 5% 64.9%);
+  --color-border: hsl(240 3.7% 15.9%);
+  --color-input: hsl(240 3.7% 15.9%);
+  --color-ring: hsl(243 75% 59%);
 }
 
+/* Fondo global con gradiente si lo quieres */
 body {
-  background: var(--background-gradient);
-  color: hsl(var(--foreground));
+  background: linear-gradient(135deg, hsl(220 20% 6%) 0%, hsl(240 15% 8%) 100%);
+  color: hsl(var(--color-foreground));
   min-height: 100vh;
 }
 
-/* Solo definiciones CSS puras (sin clases Tailwind dentro) */
-@layer components {
+/* Tus custom layers (glass, glow, etc.) */
+@layer utilities {
   .glass {
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(20px);
@@ -43,32 +36,14 @@ body {
   }
 
   .glow-primary {
-    box-shadow: var(--primary-glow);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.35);
   }
 
-  .glow-accent {
-    box-shadow: var(--accent-glow);
-  }
-
-  .text-gradient {
-    background: linear-gradient(to right, #a5b4fc, #67e8f9);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+  /* ... el resto */
 }
 
-/* Scrollbar custom */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
-}
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--primary));
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary-hover));
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: hsl(var(--color-background)); }
+::-webkit-scrollbar-thumb { background: hsl(var(--color-primary)); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--color-primary-hover)); }
