@@ -90,6 +90,12 @@ export default function Dashboard() {
           >
             Gestionar Notas
           </Link>
+          <Link
+            href="/dashboard/subjects"
+            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg transition"
+          >
+            Gestionar Materias
+          </Link>
 
 
           <button
