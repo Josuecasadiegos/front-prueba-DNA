@@ -1,6 +1,8 @@
+// src/app/layout.js   ← asegúrate que sea ESTA ruta
+
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
-import './globals.css';
+import './globals.css';  // ← este import es crítico – debe ser ./globals.css si globals.css está en src/app/
 
 const inter = Inter({ subsets: ['latin'] });
 
