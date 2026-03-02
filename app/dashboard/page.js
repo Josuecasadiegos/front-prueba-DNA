@@ -84,6 +84,12 @@ export default function Dashboard() {
           >
             Gestionar Roles
           </Link>
+          <Link
+            href="/dashboard/grades"
+            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg transition"
+          >
+            Gestionar Notas
+          </Link>
 
 
           <button
