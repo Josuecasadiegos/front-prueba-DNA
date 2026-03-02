@@ -23,8 +23,11 @@ export default function LoginPage() {
         body: JSON.stringify(form),
       });
 
+      // Solo llega aquí si el backend devolvió 200
       router.push('/dashboard');
+      router.refresh(); // limpia caché de Next.js
     } catch (err) {
+      // Ahora sí entra aquí cuando es 401, 403, etc.
       setError(err.message || 'Error al iniciar sesión');
     } finally {
       setLoading(false);
@@ -41,9 +44,7 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Usuario
-            </label>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Usuario</label>
             <input
               name="username"
               value={form.username}
@@ -55,9 +56,7 @@ export default function LoginPage() {
           </div>
 
           <div className="relative">
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Contraseña
-            </label>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Contraseña</label>
             <input
               name="password"
               type={showPassword ? 'text' : 'password'}
