@@ -16,14 +16,12 @@ export default function VerifyClient() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // 1. Caso de "ya verificado" (prioridad alta)
     if (already === 'verified') {
       setStatus('already');
       setMessage('Tu cuenta ya fue confirmada anteriormente. Puedes iniciar sesión.');
       return;
     }
 
-    // 2. Caso de error explícito
     if (error) {
       let errMsg = 'Ocurrió un error al verificar tu correo.';
       if (error === 'no-token') errMsg = 'Falta el token de verificación.';
@@ -35,14 +33,12 @@ export default function VerifyClient() {
       return;
     }
 
-    // 3. Caso principal: verificación con token
     if (token) {
       setStatus('loading');
       verifyToken(token);
       return;
     }
 
-    // 4. Caso fallback: enlace inválido sin parámetros útiles
     setStatus('error');
     setMessage('Enlace inválido: no se encontró token ni información de verificación.');
   }, [token, error, already]);
@@ -63,7 +59,6 @@ export default function VerifyClient() {
         },
       });
 
-      // Si el backend redirige (por si quedó algún redirect), manejarlo
       if (response.redirected) {
         window.location.href = response.url;
         return;
@@ -94,7 +89,6 @@ export default function VerifyClient() {
     }
   };
 
-  // Render según estado
   if (status === 'loading') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black flex items-center justify-center p-6">
@@ -156,7 +150,6 @@ export default function VerifyClient() {
     );
   }
 
-  // Error por defecto
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-gray-900/70 backdrop-blur-xl rounded-2xl border border-gray-800/50 shadow-2xl shadow-black/50 p-10 text-center">

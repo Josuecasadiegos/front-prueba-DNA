@@ -1,4 +1,3 @@
-// src/app/verify/page.js
 import { Suspense } from 'react';
 import VerifyClient from './VerifyClient';
 

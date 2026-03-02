@@ -23,11 +23,10 @@ export default function LoginPage() {
         body: JSON.stringify(form),
       });
 
-      // Solo llega aquí si el backend devolvió 200
       router.push('/dashboard');
-      router.refresh(); // limpia caché de Next.js
+      router.refresh();
     } catch (err) {
-      // Ahora sí entra aquí cuando es 401, 403, etc.
+      
       setError(err.message || 'Error al iniciar sesión');
     } finally {
       setLoading(false);

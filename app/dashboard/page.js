@@ -35,31 +35,23 @@ export default function Dashboard() {
     checkSession();
   }, [router]);
 
-  // Función auxiliar para limpiar TODO lo relacionado con la sesión en el cliente
   const clearSessionAndRedirect = () => {
-    // 1. Limpiar estado local de React
     setUser(null);
 
-    // 2. Limpiar localStorage y sessionStorage (si guardas algo ahí)
-    localStorage.clear();      // o localStorage.removeItem('alguna-clave') si es selectivo
+    localStorage.clear();
     sessionStorage.clear();
 
-    // 3. Forzar refresh del Router Cache de Next.js (limpia caché de navegación y datos prefetch)
-    router.refresh();          // Esto invalida el caché client-side sin full reload
+    router.refresh();
 
-    // 4. Redirigir a login (replace para no dejar /dashboard en history)
     router.replace('/login');
   };
 
   const handleLogout = async () => {
     try {
-      // Llamada al backend para borrar la cookie httpOnly
       await apiFetch('/api/auth/logout', { method: 'POST' });
     } catch (err) {
       console.error('Error al cerrar sesión en backend:', err);
-      // Continúa limpiando el cliente aunque falle el backend
     } finally {
-      // Siempre limpia el cliente completamente
       clearSessionAndRedirect();
     }
   };
@@ -98,7 +90,6 @@ export default function Dashboard() {
             Bienvenido, {user.username}
           </h2>
           <p className="text-gray-300 mb-6">Rol: {user.role}</p>
-          {/* Aquí va tu contenido real */}
         </div>
       </div>
     </div>
