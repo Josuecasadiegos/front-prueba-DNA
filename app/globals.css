@@ -3,17 +3,87 @@
 @tailwind utilities;
 
 :root {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --primary: 243 75% 59%;
-  --primary-hover: 243 75% 50%;
+  --background: 220 20% 6%;          /* Azul-negro muy oscuro, base oficina nocturna */
+  --background-gradient: linear-gradient(135deg, hsl(220 20% 6%) 0%, hsl(240 15% 8%) 100%);
+  
+  --foreground: 220 80% 95%;         /* Blanco-azulado suave, legible */
+  --foreground-muted: 220 40% 70%;
+  
+  --card: 220 18% 12%;               /* Tarjetas con fondo ligeramente elevado */
+  --card-border: 220 15% 18%;
+  
+  --border: 220 15% 18%;
+  --input: 220 15% 18%;
+  
+  --primary: 243 75% 65%;            /* Indigo/neón elegante */
+  --primary-hover: 243 75% 55%;
+  --primary-glow: 0 0 12px rgba(99, 102, 241, 0.35);  /* glow sutil */
+  
+  --accent: 200 90% 65%;             /* Cian sutil para highlights dinámicos */
+  --accent-glow: 0 0 10px rgba(34, 211, 238, 0.25);
+  
+  --muted: 220 15% 20%;
+  --muted-foreground: 220 30% 60%;
+  
+  --destructive: 0 84% 60%;
+  --destructive-hover: 0 84% 50%;
 }
 
+/* Fondo global con gradiente sutil para dinamismo futurista */
 body {
-  background: hsl(var(--background));
+  background: var(--background-gradient);
   color: hsl(var(--foreground));
+  min-height: 100vh;
+}
+
+/* Mejora general de tarjetas y contenedores */
+@layer components {
+  .card {
+    @apply bg-[hsl(var(--card))] border border-[hsl(var(--card-border))] rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-sm transition-all duration-300 hover:shadow-[0_8px_40px_rgba(0,0,0,0.5)];
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-indigo-600 to-indigo-500 text-white font-medium rounded-xl px-6 py-3 transition-all duration-300 hover:from-indigo-500 hover:to-indigo-400 hover:shadow-[var(--primary-glow)] hover:scale-[1.02] active:scale-95;
+  }
+
+  .btn-outline {
+    @apply border border-indigo-500/40 text-indigo-400 hover:bg-indigo-950/30 hover:border-indigo-400 hover:shadow-[var(--primary-glow)] transition-all duration-300 rounded-xl px-6 py-3;
+  }
+
+  .input-field {
+    @apply bg-[hsl(var(--input))] border border-[hsl(var(--border))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] rounded-xl px-5 py-4 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 focus:shadow-[var(--primary-glow)] transition-all duration-200 outline-none;
+  }
+
+  .glow-accent {
+    @apply shadow-[var(--accent-glow)];
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent;
+  }
+}
+
+/* Scrollbars modernas y sutiles (futurista) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary-hover));
+}
+
+/* Transiciones globales suaves */
+* {
+  @apply transition-colors duration-200 ease-in-out;
+}
+
+/* Opcional: glassmorphism sutil para elementos flotantes (muy futurista/minimal) */
+.glass {
+  @apply bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl;
 }
