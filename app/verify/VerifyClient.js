@@ -51,7 +51,7 @@ export default function VerifyClient() {
   const verifyToken = async (tok) => {
     try {
       // URL del backend (debe estar en .env del frontend como NEXT_PUBLIC_ para que sea visible en cliente)
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://tu-backend.vercel.app';
+      const backendUrl = process.env.NEXT_PUBLIC_API_URL ;
 
       const response = await fetch(`${backendUrl}/api/auth/verify-email?token=${tok}`, {
         method: 'GET',
