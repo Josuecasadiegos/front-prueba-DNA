@@ -96,6 +96,12 @@ export default function Dashboard() {
           >
             Gestionar Materias
           </Link>
+          <Link
+            href="/dashboard/students"
+            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg transition"
+          >
+            Gestionar Estudiantes
+          </Link>
 
 
           <button
