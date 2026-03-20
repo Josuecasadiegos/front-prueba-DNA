@@ -17,15 +17,15 @@ export default function GradesPage() {
     try {
       setLoading(true);
 
-      const [gradesRes, studentsRes, subjectsRes] = await Promise.all([
+      const [grades, students, subjects] = await Promise.all([
         apiFetch('/api/grades'),
         apiFetch('/api/students'),
         apiFetch('/api/subjects'),
       ]);
 
-      setGrades(await gradesRes.json());
-      setStudents(await studentsRes.json());
-      setSubjects(await subjectsRes.json());
+      setGrades(grades);
+      setStudents(students);
+      setSubjects(subjects);
     } catch (err) {
       alert(err.message);
     } finally {
