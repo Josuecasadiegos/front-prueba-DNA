@@ -1,8 +1,15 @@
 import Link from 'next/link';
+import { Toaster } from 'react-hot-toast';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[hsl(var(--background))] flex flex-col items-center justify-center px-4">
+      <Toaster 
+          position="top-right"
+          toastOptions={{
+            duration: 3000,
+          }}
+        />
       <div className="text-center max-w-3xl">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
           DNA Music
