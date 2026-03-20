@@ -15,8 +15,7 @@ export default function RolesPage() {
   const fetchRoles = async () => {
     try {
       setLoading(true);
-      const res = await apiFetch('/api/roles', { method: 'GET' });
-      const data = await res.json();
+      const data = await apiFetch('/api/roles', { method: 'GET' });
       setRoles(data);
     } catch (err) {
       setError(err.message || 'Error al cargar roles');
