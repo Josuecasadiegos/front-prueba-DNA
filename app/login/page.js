@@ -6,7 +6,7 @@ import { Loader2, Eye, EyeOff } from 'lucide-react';
 import { apiFetch } from '@/lib/api';
 
 export default function LoginPage() {
-  const [form, setForm] = useState({ username: '', password: '' });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -45,9 +45,9 @@ export default function LoginPage() {
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">Usuario</label>
             <input
-              name="username"
+              name="email"
               value={form.username}
-              onChange={(e) => setForm({ ...form, username: e.target.value })}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
               className="w-full px-5 py-4 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 transition-all duration-200"
               placeholder="admin"
               required
