@@ -13,28 +13,23 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const res = await apiFetch('/api/auth/me', {
-          method: 'GET',
-        });
+  const checkSession = async () => {
+    try {
+      const data = await apiFetch('/api/auth/me', {
+        method: 'GET',
+      });
 
-        if (!res.ok) {
-          throw new Error('Sesión inválida');
-        }
+      setUser(data.user);
+    } catch (err) {
+      setError('Sesión no válida');
+      clearSessionAndRedirect();
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        const data = await res.json();
-        setUser(data.user);
-      } catch (err) {
-        setError('Sesión no válida');
-        clearSessionAndRedirect();
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkSession();
-  }, [router]);
+  checkSession();
+}, []);
 
   const clearSessionAndRedirect = () => {
     setUser(null);
