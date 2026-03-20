@@ -15,8 +15,7 @@ export default function SubjectsPage() {
   const fetchSubjects = async () => {
     try {
       setLoading(true);
-      const res = await apiFetch('/api/subjects');
-      const data = await res.json();
+      const data = await apiFetch('/api/subjects');
       setSubjects(data);
     } catch (err) {
       setError(err.message || 'Error al cargar materias');

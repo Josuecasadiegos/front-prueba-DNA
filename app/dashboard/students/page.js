@@ -15,9 +15,9 @@ export default function StudentsPage() {
   const fetchStudents = async () => {
     try {
       setLoading(true);
-      const res = await apiFetch('/api/students');
-      const data = await res.json();
+      const data = await apiFetch('/api/students');
       setStudents(data);
+      
     } catch (err) {
       setError(err.message || 'Error al cargar estudiantes');
     } finally {
