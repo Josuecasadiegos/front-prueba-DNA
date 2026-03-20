@@ -11,7 +11,7 @@ export default function RegisterPage() {
     email: '',
     password: '',
     confirmPassword: '',
-    roleName: 'student',
+    roleName: 'estudiante',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
