@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Loader2 } from 'lucide-react';
+import { Loader2, LogOut } from 'lucide-react';
 import { apiFetch } from '@/lib/api';
 import Link from 'next/link';
 
@@ -13,32 +13,26 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
-  const checkSession = async () => {
-    try {
-      const data = await apiFetch('/api/auth/me', {
-        method: 'GET',
-      });
+    const checkSession = async () => {
+      try {
+        const data = await apiFetch('/api/auth/me', { method: 'GET' });
+        setUser(data.user);
+      } catch (err) {
+        setError('Sesión no válida');
+        clearSessionAndRedirect();
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      setUser(data.user);
-    } catch (err) {
-      setError('Sesión no válida');
-      clearSessionAndRedirect();
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  checkSession();
-}, []);
+    checkSession();
+  }, []);
 
   const clearSessionAndRedirect = () => {
     setUser(null);
-
     localStorage.clear();
     sessionStorage.clear();
-
     router.refresh();
-
     router.replace('/login');
   };
 
@@ -46,7 +40,7 @@ export default function Dashboard() {
     try {
       await apiFetch('/api/auth/logout', { method: 'POST' });
     } catch (err) {
-      console.error('Error al cerrar sesión en backend:', err);
+      console.error('Error al cerrar sesión:', err);
     } finally {
       clearSessionAndRedirect();
     }
@@ -63,57 +57,77 @@ export default function Dashboard() {
   if (error || !user) {
     return (
       <div className="min-h-screen bg-gray-950 flex items-center justify-center text-white">
-        <p>{error || 'No autenticado'}</p>
+        <div className="text-center">
+          <p className="text-xl text-red-400 mb-4">{error || 'No autenticado'}</p>
+          <Link href="/login" className="text-indigo-400 hover:text-indigo-300 underline">
+            Ir al login
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-8">
-      <div className="max-w-4xl mx-auto">
-        <header className="flex justify-between items-center mb-10">
-          <h1 className="text-4xl font-bold">Dashboard</h1>
-          <Link
-            href="/dashboard/roles"
-            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg transition"
-          >
-            Gestionar Roles
-          </Link>
-          <Link
-            href="/dashboard/grades"
-            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg transition"
-          >
-            Gestionar Notas
-          </Link>
-          <Link
-            href="/dashboard/subjects"
-            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg transition"
-          >
-            Gestionar Materias
-          </Link>
-          <Link
-            href="/dashboard/students"
-            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg transition"
-          >
-            Gestionar Estudiantes
-          </Link>
+    <div className="min-h-screen bg-gray-950 text-gray-100">
+      {/* Header */}
+      <header className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-sm sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-4 sm:py-5 gap-4">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Dashboard</h1>
 
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/dashboard/roles"
+                className="px-4 py-2 bg-indigo-600/90 hover:bg-indigo-600 text-white text-sm font-medium rounded-lg transition-colors shadow-sm"
+              >
+                Roles
+              </Link>
+              <Link
+                href="/dashboard/grades"
+                className="px-4 py-2 bg-indigo-600/90 hover:bg-indigo-600 text-white text-sm font-medium rounded-lg transition-colors shadow-sm"
+              >
+                Notas
+              </Link>
+              <Link
+                href="/dashboard/subjects"
+                className="px-4 py-2 bg-indigo-600/90 hover:bg-indigo-600 text-white text-sm font-medium rounded-lg transition-colors shadow-sm"
+              >
+                Materias
+              </Link>
+              <Link
+                href="/dashboard/students"
+                className="px-4 py-2 bg-indigo-600/90 hover:bg-indigo-600 text-white text-sm font-medium rounded-lg transition-colors shadow-sm"
+              >
+                Estudiantes
+              </Link>
 
-          <button
-            onClick={handleLogout}
-            className="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg transition"
-          >
-            Cerrar Sesión
-          </button>
-        </header>
-
-        <div className="bg-gray-900 p-8 rounded-xl border border-gray-800">
-          <h2 className="text-2xl font-semibold mb-4">
-            Bienvenido, {user.username}
-          </h2>
-          <p className="text-gray-300 mb-6">Rol: {user.role}</p>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 bg-red-600/90 hover:bg-red-600 text-white text-sm font-medium rounded-lg transition-colors shadow-sm flex items-center gap-1.5 ml-2 sm:ml-4"
+              >
+                <LogOut size={16} />
+                Salir
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      </header>
+
+      {/* Contenido principal */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-800 rounded-xl p-6 sm:p-8 shadow-xl">
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-3">
+            Bienvenido, <span className="text-indigo-400">{user.username}</span>
+          </h2>
+          <div className="flex items-center gap-3 text-gray-400">
+            <span className="text-sm font-medium px-3 py-1 bg-gray-800 rounded-full">
+              Rol: {user.role}
+            </span>
+          </div>
+        </div>
+
+        {/* Aquí puedes agregar más secciones / tarjetas / estadísticas */}
+      </main>
     </div>
   );
 }
